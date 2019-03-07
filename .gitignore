@@ -11,6 +11,14 @@
 *.out
 *.toc
 *.fmt
+latexmkrc
+
+## additional tex auxiliary files:
+*.bbl
+*.vrb
+*.nav
+*.blg
+*.snm
 
 ## Build tool auxiliary files:
 *.fdb_latexmk
