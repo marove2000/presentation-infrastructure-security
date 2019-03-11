@@ -16,3 +16,8 @@
     - Beispiel Email-Verschlüsselung (Unterschied Transportverschlüsselung zu Ende-zu-Ende Verschlüsselung)
     - Umsetzung in der Praxis mit Thunderbird und Outlook
     - SSL/TLS bei Websiten -> Crashkurs
+
+
+# Zielpuplikum
+- 53 Anmeldungen
+

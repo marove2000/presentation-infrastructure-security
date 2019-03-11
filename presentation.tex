@@ -1,3 +1,4 @@
+%\documentclass[10pt,aspectratio=169]{beamer}
 \documentclass[10pt]{beamer}
 
 \usetheme[progressbar=frametitle]{metropolis}
@@ -12,48 +13,356 @@
 \usepackage{xspace}
 \newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
 
-\title{Metropolis}
-\subtitle{A modern beamer theme}
+\title{Sicherheit in der IT-Infrastruktur}
+\subtitle{Beispiele aus der Praxis, Ausfallsicherheit, Backups, Verschlüsselung}
 % \date{\today}
-\date{}
+\date{14.03.2019}
 \author{Timo Schindler}
-\institute{Center for modern beamer themes}
+\institute{OTH Regensburg}
 % \titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.pdf}}
 
 \begin{document}
 
 \maketitle
 
-\begin{frame}{Table of contents}
+\begin{frame}{Inhalt}
   \setbeamertemplate{section in toc}[sections numbered]
   \tableofcontents[hideallsubsections]
 \end{frame}
 
-\section{Introduction}
+\section{Einführung}
 
-\begin{frame}[fragile]{Metropolis}
+\begin{frame}[fragile]{Über Mich}
 
-  The \themename theme is a Beamer theme with minimal visual noise
-  inspired by the \href{https://github.com/hsrmbeamertheme/hsrmbeamertheme}{\textsc{hsrm} Beamer
-  Theme} by Benjamin Weiss.
-
-  Enable the theme by loading
-
-  \begin{verbatim}    \documentclass{beamer}
-    \usetheme{metropolis}\end{verbatim}
-
-  Note, that you have to have Mozilla's \emph{Fira Sans} font and XeTeX
-  installed to enjoy this wonderful typography.
-\end{frame}
-\begin{frame}[fragile]{Sections}
-  Sections group slides of the same topic
-
-  \begin{verbatim}    \section{Elements}\end{verbatim}
-
-  for which \themename provides a nice progress indicator \ldots
+  Timo Schindler
+  
+  OTH Regensburg
+  
+  Server-, Storage- und Virtualisierungs-Infrastruktur 
+  IT Security
+  
 \end{frame}
 
-\section{Titleformats}
+
+\begin{frame}[fragile]{Zentralisierung als Lösung}
+In Zeiten der Cloud wandern mehr und mehr Services in die Rechenzentren
+\end{frame}
+
+\begin{frame}[fragile]{Warum Backup?}
+Datenverlust
+Datenänderung
+Angriff (Ransom Ware)
+\end{frame}
+
+\begin{frame}[fragile]{Schutzziele der Informationssicherheit}
+\begin{columns}[T,onlytextwidth]
+	\column{0.5\textwidth}
+	Allgemeine Schutzziele
+	\begin{exampleblock}{Vertraulichkeit}
+		Lesen nur durch autorisierte Benutzer
+	\end{exampleblock}
+	
+	\begin{exampleblock}{Integrität}
+		Keine unbemerkte Veränderung
+	\end{exampleblock}
+	
+	\begin{exampleblock}{Verfügbarkeit}
+		Verhinderung von Systemausfällen
+	\end{exampleblock}
+	
+	\column{0.5\textwidth}
+	Weiter Schutzziele
+	\begin{exampleblock}{Authentizität}
+		Echtheit bzw. Überprüfbarkeit eines Objektes
+	\end{exampleblock}
+	
+	\begin{exampleblock}{Verbindlichkeit}
+		Kein unzulässiges Abstreiten von Aktionen
+	\end{exampleblock}
+	
+	\begin{exampleblock}{Zurechenbarkeit}
+		Zuordnung einer Aktion auf Benutzer
+	\end{exampleblock}
+	
+\end{columns}
+
+Schutzziele können nur durch Zusammenspiel aus Hard- und Software erreicht werden.
+\end{frame}
+
+\begin{frame}[fragile]{Bedrohungen}
+Vielseitige Bedrohungen
+Technischer Systemausfall
+Systemmissbrauch, durch illegitime Ressourcennutzung, Veränderung von publizierten Inhalten etc.
+Sabotage
+Spionage
+Betrug und Diebstahl
+\end{frame}
+
+\subsection{Verfügbarkeit}
+
+\begin{frame}[fragile]{Maßstab für Ausfallsicherheit}
+	\begin{alertblock}{Tier 1 - Holzklasse}
+tier 3- 4
+	https://www.datacenter-insider.de/von-tier1-bis-tier-4-die-vier-qualitaetsstufen-eines-rechenzentrums-a-341120/
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{RAID ist kein Backup!}
+\begin{alertblock}{RAID}
+	raid erklären
+	warum kein backup?
+	was kann passieren?
+	welches raid sollte gewählt werden?
+	auf tiefgreifendere storagesysteme eingehen
+	weiterleitung auf integrität
+\end{alertblock}
+\end{frame}
+
+\subsection{Integrität}
+
+\begin{frame}[fragile]{Signaturen und Hashing Algorithmen}
+\begin{alertblock}{hashing}
+hier auf signaturen und hashes eingehen
+überführung von zfs?
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Retention Locking?}
+\begin{alertblock}{retention locking}
+hier vielleicht auf retention locks eingehen?
+\end{alertblock}
+\end{frame}
+
+\subsection{Vertraulichkeit}
+
+\begin{frame}[fragile]{Signaturen und Hashing Algorithmen}
+\begin{alertblock}{transportverschlüsselung}
+Transportverschlüsselung
+Verschlüsselung auf Filesystem ebene
+
+\end{alertblock}
+\end{frame}
+
+
+\begin{frame}[fragile]{Never trust an Backup}
+\begin{alertblock}{Überprüfen und mehrere Stufen}
+	Mehrstufige Backups
+	Überprüfung der Backups
+	Rückspielen von Backups
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Notfallplan}
+\begin{alertblock}{Ausfälle}
+	Ausfälle passieren
+	Ausfälle passieren zu unmöglichsten Zeiten
+	Ausfall von Systemadminstratoren?
+	Was tun wenn etwas passiert?
+\end{alertblock}
+\end{frame}
+
+\section{Backupinfrastruktur in der Praxis}
+
+\begin{frame}[fragile]{Struktur der OTH Regensburg}
+\begin{alertblock}{Ausfälle}
+	Ausfälle passieren
+	Ausfälle passieren zu unmöglichsten Zeiten
+	Ausfall von Systemadminstratoren?
+	Was tun wenn etwas passiert?
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Problem: Redundante Klimatechnik}
+\begin{alertblock}{Ausfälle}
+	Ausfälle passieren
+	Ausfälle passieren zu unmöglichsten Zeiten
+	Ausfall von Systemadminstratoren?
+	Was tun wenn etwas passiert?
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Problem: Stromausfälle}
+\begin{alertblock}{Ausfälle}
+	Ausfälle passieren
+	Ausfälle passieren zu unmöglichsten Zeiten
+	Ausfall von Systemadminstratoren?
+	Was tun wenn etwas passiert?
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Problem: Angriffe}
+\begin{alertblock}{Ausfälle}
+	Ausfälle passieren
+	Ausfälle passieren zu unmöglichsten Zeiten
+	Ausfall von Systemadminstratoren?
+	Was tun wenn etwas passiert?
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Problem: Netzwerkverteilung}
+\begin{alertblock}{Ausfälle}
+	Ausfälle passieren
+	Ausfälle passieren zu unmöglichsten Zeiten
+	Ausfall von Systemadminstratoren?
+	Was tun wenn etwas passiert?
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Unbeabsichtigte Änderung/Löschung}
+\begin{alertblock}{Ausfälle}
+	An den User weitergeben
+	
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Reaktionszeiten}
+\begin{alertblock}{Ausfälle}
+	Ausfälle passieren
+	Ausfälle passieren zu unmöglichsten Zeiten
+	Ausfall von Systemadminstratoren?
+	Was tun wenn etwas passiert?
+\end{alertblock}
+\end{frame}
+
+\section{Verschlüsselung und Signierung}
+
+\subsection{Grundlagen}
+
+\begin{frame}[fragile]{Warum Verschlüsselung?}
+\begin{alertblock}{Ausfälle}
+Nötig in der Praxis?
+Vertrauen in den Admin
+Vertrauen in die Infrastruktur
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Symmetrische Verschlüsselung}
+\begin{alertblock}{Ausfälle}
+	Ausfälle passieren
+	Ausfälle passieren zu unmöglichsten Zeiten
+	Ausfall von Systemadminstratoren?
+	Was tun wenn etwas passiert?
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Asymmetrische Verschlüsselung}
+\begin{alertblock}{Ausfälle}
+	Ausfälle passieren
+	Ausfälle passieren zu unmöglichsten Zeiten
+	Ausfall von Systemadminstratoren?
+	Was tun wenn etwas passiert?
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Transportverschlüsselung}
+\begin{alertblock}{Ausfälle}
+	Ausfälle passieren
+	Ausfälle passieren zu unmöglichsten Zeiten
+	Ausfall von Systemadminstratoren?
+	Was tun wenn etwas passiert?
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Festplattenverschlüsselung}
+\begin{alertblock}{Ausfälle}
+	Ausfälle passieren
+	Ausfälle passieren zu unmöglichsten Zeiten
+	Ausfall von Systemadminstratoren?
+	Was tun wenn etwas passiert?
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Signaturalgorithmen}
+\begin{alertblock}{Ausfälle}
+Server von DFN beschreiben
+Warum brauchen wir das?
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{PGP und S/MIME}
+\begin{alertblock}{Ausfälle}
+	Server von DFN beschreiben
+	Warum brauchen wir das?
+\end{alertblock}
+\end{frame}
+
+\subsection{Verschlüsselung und Signierung in der Praxis}
+
+\begin{frame}[fragile]{https TLS}
+\begin{alertblock}{Ausfälle}
+	Ausfälle passieren
+	Ausfälle passieren zu unmöglichsten Zeiten
+	Ausfall von Systemadminstratoren?
+	Was tun wenn etwas passiert?
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Signatur von Backups}
+\begin{alertblock}{Ausfälle}
+	Ausfälle passieren
+	Ausfälle passieren zu unmöglichsten Zeiten
+	Ausfall von Systemadminstratoren?
+	Was tun wenn etwas passiert?
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Verschlüsselung von Dateien und Backups}
+\begin{alertblock}{Ausfälle}
+	Ausfälle passieren
+	Ausfälle passieren zu unmöglichsten Zeiten
+	Ausfall von Systemadminstratoren?
+	Was tun wenn etwas passiert?
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Signaturalgorithmen}
+\begin{alertblock}{Ausfälle}
+	Ausfälle passieren
+	Ausfälle passieren zu unmöglichsten Zeiten
+	Ausfall von Systemadminstratoren?
+	Was tun wenn etwas passiert?
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Email-Verschlüsselung in der Praxis}
+\begin{alertblock}{Ausfälle}
+	Ausfälle passieren
+	Ausfälle passieren zu unmöglichsten Zeiten
+	Ausfall von Systemadminstratoren?
+	Was tun wenn etwas passiert?
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Ausflug: Whatsapp und Co}
+\begin{alertblock}{Ausfälle}
+	Ausfälle passieren
+	Ausfälle passieren zu unmöglichsten Zeiten
+	Ausfall von Systemadminstratoren?
+	Was tun wenn etwas passiert?
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{VPN}
+\begin{alertblock}{Ausfälle}
+	Ausfälle passieren
+	Ausfälle passieren zu unmöglichsten Zeiten
+	Ausfall von Systemadminstratoren?
+	Was tun wenn etwas passiert?
+\end{alertblock}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Zusammenfassung}
+\begin{alertblock}{Ausfälle}
+	Ausfälle passieren
+	Ausfälle passieren zu unmöglichsten Zeiten
+	Ausfall von Systemadminstratoren?
+	Was tun wenn etwas passiert?
+\end{alertblock}
+\end{frame}
+
+
 
 \begin{frame}{Metropolis titleformats}
 	\themename supports 4 different titleformats:
