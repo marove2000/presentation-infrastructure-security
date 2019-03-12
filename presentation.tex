@@ -13,6 +13,13 @@
 \usepackage{xspace}
 \newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
 
+\newcommand\blfootnote[1]{%
+	\begingroup
+	\renewcommand\thefootnote{}\footnote{#1}%
+	\addtocounter{footnote}{-1}%
+	\endgroup
+}
+
 \title{Sicherheit in der IT-Infrastruktur}
 \subtitle{Beispiele aus der Praxis, Ausfallsicherheit, Backups, Verschlüsselung}
 % \date{\today}
@@ -25,39 +32,95 @@
 
 \maketitle
 
+%%%%%%%%%%
+%
+% Inhalt
+%
+%%%%%%%%%%
 \begin{frame}{Inhalt}
   \setbeamertemplate{section in toc}[sections numbered]
   \tableofcontents[hideallsubsections]
 \end{frame}
 
-\section{Einführung}
+\section{Einführung: Backup}
 
+%%%%%%%%%%
+%
+% Über mich
+%
+%%%%%%%%%%
 \begin{frame}[fragile]{Über Mich}
 
-  Timo Schindler
-  
-  OTH Regensburg
-  
-  Server-, Storage- und Virtualisierungs-Infrastruktur 
-  IT Security
-  
+\begin{columns}[T,c,onlytextwidth]
+\column{0.5\textwidth}
+\begin{exampleblock}{Timo Schindler}
+OTH Regensburg
+\end{exampleblock}
+
+\column{0.5\textwidth}
+\begin{itemize}
+  	\item Promotion: IT Security \& Machine Learning
+  	\item Server- und Storage-Systeme
+  	\item Virtualisierungs-Infrastruktur
+  	\item Sysadmin mit Leidenschaft
+\end{itemize}
+\end{columns}
 \end{frame}
 
 
-\begin{frame}[fragile]{Zentralisierung als Lösung}
-In Zeiten der Cloud wandern mehr und mehr Services in die Rechenzentren
+%%%%%%%%%%
+%
+% Zentralisierung als Lösung
+%
+%%%%%%%%%%
+\begin{frame}[fragile]{Zentralisierung als Lösung?}
+\begin{columns}[T,c,onlytextwidth]
+	\column{0.5\textwidth}
+	\begin{itemize}
+		\item In Zeiten von Cloud: Services wandern in die Rechenzentren
+		\item Zentraler Zugriff für alle Benutzer
+		\item Zentraler Schwachpunkt
+		\item Vertrauen in Administratoren
+		\item Sicherheit an Zentraler Stelle wichtiger den je!
+	\end{itemize}
+
+\column{0.5\textwidth}
+ \begin{figure}
+	\includegraphics[width=0.8\textwidth]{images/thereisnocloud-v2}
+\end{figure}
+\end{columns}
+	\blfootnote{Bild: \href{https://fsfe.org}{fsfe.org}}
 \end{frame}
 
+%%%%%%%%%%
+%
+% Warum Backup?
+%
+%%%%%%%%%%
 \begin{frame}[fragile]{Warum Backup?}
-Datenverlust
-Datenänderung
-Angriff (Ransom Ware)
+Gründe für Backups sehr divers. Datenverlust durch:
+	\begin{itemize}
+	\item Versehentliches Löschen
+	\item Unberechtigte Veränderung durch Dritte
+	\item Technischer Systemausfall
+	\item Diebstahl, Sabotage, Betrug
+	\item Katastrophen (Brand, Wasserschaden)
+	\item Angriffe (z.B. Ransomware)
+\end{itemize}
+Backupmechanismen und -maßnahmen unterscheiden sich dadurch erheblich.
 \end{frame}
 
+%%%%%%%%%%
+%
+% Schutzziele der Informationssicherheit
+%
+%%%%%%%%%%
 \begin{frame}[fragile]{Schutzziele der Informationssicherheit}
 \begin{columns}[T,onlytextwidth]
-	\column{0.5\textwidth}
+	\column{0.45\textwidth}
 	Allgemeine Schutzziele
+	
+	\metroset{block=fill}
 	\begin{exampleblock}{Vertraulichkeit}
 		Lesen nur durch autorisierte Benutzer
 	\end{exampleblock}
@@ -70,8 +133,10 @@ Angriff (Ransom Ware)
 		Verhinderung von Systemausfällen
 	\end{exampleblock}
 	
-	\column{0.5\textwidth}
+	\column{0.45\textwidth}
 	Weiter Schutzziele
+	
+	\metroset{block=fill}
 	\begin{exampleblock}{Authentizität}
 		Echtheit bzw. Überprüfbarkeit eines Objektes
 	\end{exampleblock}
@@ -89,76 +154,262 @@ Angriff (Ransom Ware)
 Schutzziele können nur durch Zusammenspiel aus Hard- und Software erreicht werden.
 \end{frame}
 
-\begin{frame}[fragile]{Bedrohungen}
-Vielseitige Bedrohungen
-Technischer Systemausfall
-Systemmissbrauch, durch illegitime Ressourcennutzung, Veränderung von publizierten Inhalten etc.
-Sabotage
-Spionage
-Betrug und Diebstahl
+%%%%%%%%%%
+%
+% Maßstab für Ausfallsicherheit
+%
+%%%%%%%%%%
+\begin{frame}[fragile]{Maßstab für Ausfallsicherheit}
+\begin{alertblock}{Tier 1 - Die Holzklasse}
+\end{alertblock}
+		\begin{columns}[T,c,onlytextwidth]
+		\column{0.6\textwidth}
+			\begin{itemize}
+			\item Keine Redundanz
+			\item Jährliche Ausfallzeit 28,8 Stunden
+			\item 99,67 \% Verfügbarkeit
+			\item Wartung im Betrieb nicht möglich
+			\item Nur ein Versorgungsweg für Kälte- und Energieverteilung
+		\end{itemize}
+		\column{0.4\textwidth}
+	 \begin{figure}
+		\includegraphics[width=1\textwidth]{images/tier1}
+	\end{figure}
+\end{columns}
 \end{frame}
-
-\subsection{Verfügbarkeit}
 
 \begin{frame}[fragile]{Maßstab für Ausfallsicherheit}
-	\begin{alertblock}{Tier 1 - Holzklasse}
-tier 3- 4
-	https://www.datacenter-insider.de/von-tier1-bis-tier-4-die-vier-qualitaetsstufen-eines-rechenzentrums-a-341120/
+\begin{alertblock}{Tier 2 - Einfache Redundanz im Rechenzentrum}
 \end{alertblock}
+\begin{columns}[T,c,onlytextwidth]
+	\column{0.6\textwidth}
+	\begin{itemize}
+		\item Redundanz nur in Versorgungsweg
+		\item Jährliche Ausfallzeit 22 Stunden
+		\item 99,75 \% Verfügbarkeit
+		\item Wartung im Betrieb bedingt möglich
+		\item Redundanter Versorgungsweg für Kälte- und Energieverteilung
+	\end{itemize}
+	\column{0.4\textwidth}
+	\begin{figure}
+		\includegraphics[width=1\textwidth]{images/tier2}
+	\end{figure}
+\end{columns}
 \end{frame}
 
+\begin{frame}[fragile]{Maßstab für Ausfallsicherheit}
+\begin{alertblock}{Tier 3 - Fehlertoleranz möglich}
+\end{alertblock}
+\begin{columns}[T,c,onlytextwidth]
+	\column{0.6\textwidth}
+	\begin{itemize}
+		\item Redundanz in Versorgung
+		\item Server mehrfach vorhanden
+		\item Jährliche Ausfallzeit 1,6 Stunden
+		\item 99,98 \% Verfügbarkeit
+		\item Wartung im Betrieb möglich
+		\item Redundanter Versorgungsweg für Kälte- und Energieverteilung
+	\end{itemize}
+	\column{0.4\textwidth}
+	\begin{figure}
+		\includegraphics[width=1\textwidth]{images/tier3}
+	\end{figure}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Maßstab für Ausfallsicherheit}
+\begin{alertblock}{Tier 4 - Die Masterclass}
+\end{alertblock}
+\begin{columns}[T,c,onlytextwidth]
+	\column{0.6\textwidth}
+	\begin{itemize}
+		\item Komplette doppelte Redundanz
+		\item Server mehrfach vorhanden
+		\item Jährliche Ausfallzeit 0,8 Stunden
+		\item 99,991 \% Verfügbarkeit
+		\item Wartung im Betrieb möglich
+		\item Mehrfach redundanter Versorgungsweg für Kälte- und Energieverteilung
+	\end{itemize}
+	\column{0.4\textwidth}
+	\begin{figure}
+		\includegraphics[width=1\textwidth]{images/tier4}
+	\end{figure}
+\end{columns}
+\end{frame}
+
+%%%%%%%%%%
+%
+% RAID
+%
+%%%%%%%%%%
 \begin{frame}[fragile]{RAID ist kein Backup!}
-\begin{alertblock}{RAID}
-	raid erklären
-	warum kein backup?
-	was kann passieren?
-	welches raid sollte gewählt werden?
-	auf tiefgreifendere storagesysteme eingehen
-	weiterleitung auf integrität
-\end{alertblock}
+\begin{columns}[T,c,onlytextwidth]
+	\column{0.6\textwidth}
+	\begin{itemize}
+		\item Daten werden auf mehrere Festplatten verteilt
+		\item Relative Ausfallsicherheit von Festplatten
+		\item Problem bei Systematischen Fehlern
+		\item Problem bei bestimmten RAID-Leveln
+		\item RAID ist unverzichtbar, aber kein Backup!
+	\end{itemize}
+	\column{0.4\textwidth}
+	\begin{figure}
+		\includegraphics[width=1\textwidth]{images/RAID_1}
+	\end{figure}
+\end{columns}
+	\blfootnote{Bild: \href{https://de.wikipedia.org}{wikipedia.org}}
 \end{frame}
 
-\subsection{Integrität}
+%%%%%%%%%%
+%
+% RAID 6
+%
+%%%%%%%%%%
+\begin{frame}[fragile]{RAID ja, aber welche Konfiguration?}
+\begin{alertblock}{RAID 6 oder 60}
+\end{alertblock}
+\begin{columns}[T,c,onlytextwidth]
+	\column{0.6\textwidth}
+	\begin{itemize}
+		\item Bis zu zwei Festplatten können ausfallen
+		\item Bei der Wiederherstellung von Festplatten oft Ausfall weiterer Platte
+		\item Gutes Preis/Leistungs-Verhältnis
+	\end{itemize}
+	\column{0.4\textwidth}
+	\begin{figure}
+		\includegraphics[width=1\textwidth]{images/RAID_6}
+	\end{figure}
+\end{columns}
+\blfootnote{Bild: \href{https://de.wikipedia.org}{wikipedia.org}}
+\end{frame}
 
+%%%%%%%%%%
+%
+% RAID Z2
+%
+%%%%%%%%%%
+\begin{frame}[fragile]{Noch besser: RAID Z2}
+\begin{alertblock}{Zettabyte File System}
+\end{alertblock}
+\begin{columns}[T,c,onlytextwidth]
+	\column{0.6\textwidth}
+\begin{itemize}
+	\item Spezielles Filesystem
+	\item Als Software-RAID umgesetzt
+	\item Ausfallsicherheit wie RAID 6
+	\item Reparatur von Files durch Hashes
+	\item Möglich: Deduplizierung \& Kompression
+	\item Möglich: Verschlüsselung \& Caching
+\end{itemize}
+	\column{0.4\textwidth}
+	\begin{figure}
+		\includegraphics[width=1\textwidth]{images/zfs-self-healing}
+	\end{figure}
+\end{columns}
+
+\blfootnote{Bild: \href{https://www.root.cz}{root.cz}}
+\end{frame}
+
+%%%%%%%%%%
+%
+% Signaturen und Hashing Algorithmen
+%
+%%%%%%%%%%
 \begin{frame}[fragile]{Signaturen und Hashing Algorithmen}
-\begin{alertblock}{hashing}
-hier auf signaturen und hashes eingehen
-überführung von zfs?
-\end{alertblock}
+\begin{columns}[T,c,onlytextwidth]
+	\column{0.6\textwidth}
+	\begin{itemize}
+		\item Einwegfunktion
+		\item Hash immer gleiche Größe
+		\item Gleiche Datei erzeugt gleichen Hash
+		\item Minimale Änderungen erzeugen völlig unterschiedlichen Hash
+		\item Kryptographische Sicherheit
+	\end{itemize}
+	\column{0.4\textwidth}
+	\begin{figure}
+		\includegraphics[width=1\textwidth]{images/hashing}
+	\end{figure}
+\end{columns}
 \end{frame}
 
-\begin{frame}[fragile]{Retention Locking?}
-\begin{alertblock}{retention locking}
-hier vielleicht auf retention locks eingehen?
-\end{alertblock}
+%%%%%%%%%%
+%
+% Spezialfall: Revisionssichere Archivierung
+%
+%%%%%%%%%%
+\begin{frame}[fragile]{Spezialfall: Revisionssichere Archivierung}
+	\begin{itemize}
+	\item Schutz vor Manipulation
+	\item Schutz vor nachträglicher Änderung
+	\item Wird oft durch kryptografische Signaturen sichergestellt
+	\item Zertifizierte Systeme sehr teuer
+	\item Nötig für Compliance, Finanz- und Gesundheitsdaten
+\end{itemize}
 \end{frame}
 
-\subsection{Vertraulichkeit}
-
-\begin{frame}[fragile]{Signaturen und Hashing Algorithmen}
-\begin{alertblock}{transportverschlüsselung}
-Transportverschlüsselung
-Verschlüsselung auf Filesystem ebene
-
-\end{alertblock}
+%%%%%%%%%%
+%
+% Verschlüsselung
+%
+%%%%%%%%%%
+\begin{frame}[fragile]{Verschlüsselung}
+	\begin{itemize}
+	\item Backups: Beliebtes Ziel für Datenmanipulation und -diebstahl
+	\item Backups oft nachlässige Sicherheit
+	\item Verschlüsselung macht Backup unbequem
+	\item Eigener Infrastruktur sollte nicht vertraut werden
+	\item Transportverschlüsselung nicht vergessen
+\end{itemize}
 \end{frame}
 
-
-\begin{frame}[fragile]{Never trust an Backup}
-\begin{alertblock}{Überprüfen und mehrere Stufen}
-	Mehrstufige Backups
-	Überprüfung der Backups
-	Rückspielen von Backups
+%%%%%%%%%%
+%
+% Vertraue keinem Backup!
+%
+%%%%%%%%%%
+\begin{frame}[fragile]{Vertraue keinem Backup!}
+\begin{alertblock}{Niemals!}
 \end{alertblock}
+\begin{columns}[T,c,onlytextwidth]
+	\column{0.6\textwidth}
+	\begin{itemize}
+		\item Backups prüfen
+		\item Ernstfall simulieren
+		\item Mehrstufige Backups
+		\item Nochmal Backups prüfen!
+	\end{itemize}
+	\column{0.4\textwidth}
+	\begin{figure}
+		\includegraphics[width=1\textwidth]{images/failed-backup}
+	\end{figure}
+\end{columns}
+
+\blfootnote{Bild: \href{https://mail.gnome.org/archives/deja-dup-list/2012-November/msg00000.html}{gnome.org}}
 \end{frame}
 
+%%%%%%%%%%
+%
+% Notfallplan
+%
+%%%%%%%%%%
 \begin{frame}[fragile]{Notfallplan}
-\begin{alertblock}{Ausfälle}
-	Ausfälle passieren
-	Ausfälle passieren zu unmöglichsten Zeiten
-	Ausfall von Systemadminstratoren?
-	Was tun wenn etwas passiert?
-\end{alertblock}
+\begin{columns}[T,c,onlytextwidth]
+	\column{0.6\textwidth}
+	\begin{itemize}
+		\item Ausfälle passieren...
+		\item ...zu unmöglichsten Zeiten
+		\item Notfallplan aufstellen
+		\item Infrastruktur funktioniert nicht
+		\item Dauer?
+		\item Ist diese Zeit vertretbar?
+	\end{itemize}
+	\column{0.4\textwidth}
+	\begin{figure}
+		\includegraphics[width=1\textwidth]{images/dilbert}
+	\end{figure}
+\end{columns}
+
+\blfootnote{Bild: \href{https://www.dilbert.com}{dilbert.com}}
 \end{frame}
 
 \section{Backupinfrastruktur in der Praxis}
@@ -224,7 +475,7 @@ Verschlüsselung auf Filesystem ebene
 \end{alertblock}
 \end{frame}
 
-\section{Verschlüsselung und Signierung}
+\section{Grundlagen: Verschlüsselung und Signierung}
 
 \subsection{Grundlagen}
 
@@ -286,7 +537,7 @@ Warum brauchen wir das?
 \end{alertblock}
 \end{frame}
 
-\subsection{Verschlüsselung und Signierung in der Praxis}
+\section{Verschlüsselung und Signierung in der Praxis}
 
 \begin{frame}[fragile]{https TLS}
 \begin{alertblock}{Ausfälle}
@@ -351,7 +602,7 @@ Warum brauchen wir das?
 \end{alertblock}
 \end{frame}
 
-
+\section{Zusammenfassung}
 
 \begin{frame}[fragile]{Zusammenfassung}
 \begin{alertblock}{Ausfälle}
