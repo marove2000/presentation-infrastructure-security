@@ -414,65 +414,232 @@ Schutzziele können nur durch Zusammenspiel aus Hard- und Software erreicht werd
 
 \section{Backupinfrastruktur in der Praxis}
 
+%%%%%%%%%%
+%
+% Struktur OTH Regensburg
+%
+%%%%%%%%%%
 \begin{frame}[fragile]{Struktur der OTH Regensburg}
-\begin{alertblock}{Ausfälle}
-	Ausfälle passieren
-	Ausfälle passieren zu unmöglichsten Zeiten
-	Ausfall von Systemadminstratoren?
-	Was tun wenn etwas passiert?
-\end{alertblock}
+\begin{columns}[T,c,onlytextwidth]
+	\column{0.5\textwidth}
+	\begin{itemize}
+		\item 12000 Studierende
+		\item 850 Mitarbeiter
+		\item Datenspeicherung \textgreater 50 Jahre
+		\item 1 Petabyte an Speicher
+		\item 3 Serverräume
+		\item Voll redundante Systeme \\(Tier 2-3)
+	\end{itemize}
+	\column{0.5\textwidth}
+	\begin{figure}
+		\includegraphics[width=1\textwidth]{images/oth}
+	\end{figure}
+\end{columns}
+
+\blfootnote{Bild: \href{https://de.wikipedia.org/wiki/Datei:OTH_Regensburg_01.jpg}{wikipedia.org}}
 \end{frame}
 
+%%%%%%%%%%
+%
+% Problem: Redundante Klimatechnik
+%
+%%%%%%%%%%
 \begin{frame}[fragile]{Problem: Redundante Klimatechnik}
-\begin{alertblock}{Ausfälle}
-	Ausfälle passieren
-	Ausfälle passieren zu unmöglichsten Zeiten
-	Ausfall von Systemadminstratoren?
-	Was tun wenn etwas passiert?
+\begin{alertblock}{Redundanz $\neq$ Redundanz}
 \end{alertblock}
+\begin{itemize}
+	\item Zentrale Kälteanlage an der Hochschule
+	\item Redundant ausgelegte Kälteanlage
+	\item Redundanter Wärmetauscher
+	\item Beide an Kälteanlage angeschlossen
+	\item Pumpenausfall führte zu ausfall aller Wärmetauscher
+	\item Notabschaltung eines Serverraums nötig
+\end{itemize}
 \end{frame}
 
+%%%%%%%%%%
+%
+% Problem: Stromausfälle
+%
+%%%%%%%%%%
 \begin{frame}[fragile]{Problem: Stromausfälle}
-\begin{alertblock}{Ausfälle}
-	Ausfälle passieren
-	Ausfälle passieren zu unmöglichsten Zeiten
-	Ausfall von Systemadminstratoren?
-	Was tun wenn etwas passiert?
-\end{alertblock}
+
+\begin{columns}[T,c,onlytextwidth]
+	\column{0.6\textwidth}
+	\begin{itemize}
+		\item Ausfall durch USV gepuffert
+		\item Reale Pufferzeit $\neq$ Angegebene Pufferzeit
+		\item Längerfristige Pufferung durch Diesel
+		\item Regelmäßige Wartung
+		\item Immer echte Tests! Regelmäßig 
+	\end{itemize}
+	\column{0.4\textwidth}
+	\begin{figure}
+		\includegraphics[width=1\textwidth]{images/usv}
+	\end{figure}
+\end{columns}
+
+\blfootnote{Bild: \href{https://de.wikipedia.org/wiki/Unterbrechungsfreie_Stromversorgung}{wikipedia.org}}
 \end{frame}
 
-\begin{frame}[fragile]{Problem: Angriffe}
-\begin{alertblock}{Ausfälle}
-	Ausfälle passieren
-	Ausfälle passieren zu unmöglichsten Zeiten
-	Ausfall von Systemadminstratoren?
-	Was tun wenn etwas passiert?
-\end{alertblock}
-\end{frame}
-
-\begin{frame}[fragile]{Problem: Netzwerkverteilung}
-\begin{alertblock}{Ausfälle}
-	Ausfälle passieren
-	Ausfälle passieren zu unmöglichsten Zeiten
-	Ausfall von Systemadminstratoren?
-	Was tun wenn etwas passiert?
-\end{alertblock}
-\end{frame}
-
+%%%%%%%%%%
+%
+% Unbeabsichtigte Änderung/Löschung
+%
+%%%%%%%%%%
 \begin{frame}[fragile]{Unbeabsichtigte Änderung/Löschung}
-\begin{alertblock}{Ausfälle}
-	An den User weitergeben
-	
-\end{alertblock}
+	\begin{itemize}
+	\item Unbeabsichtigte Änderungen passieren
+	\item Fallen oft Jahre nicht auf
+	\item Funktion zur Wiederherstellung an User
+	\item Gibt auch Sicherheit
+	\item Die Backupfunktion kann ausfallen 
+\end{itemize}
 \end{frame}
 
+%%%%%%%%%%
+%
+% Problem: Mehrstufige Backups
+%
+%%%%%%%%%%
+\begin{frame}[fragile]{Problem: Mehrstufige Backups}
+	\begin{itemize}
+	\item Wiederherstellung von Windows war nicht möglich
+	\item Fehler ist erst Monate später aufgefallen
+	\item Keine Datensicherung vorhanden
+	\item zweite Stufe (LUN-Snapshot)
+	\item Wiederherstellung aufwändig aber möglich
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%
+%
+% Problem: Festplattenausfall
+%
+%%%%%%%%%%
+\begin{frame}[fragile]{Problem: Festplattenausfall}
+\begin{columns}[T,c,onlytextwidth]
+	\column{0.6\textwidth}
+	\begin{itemize}
+		\item Konfiguration: RAID 60 mit zwei Hot-Spare Platten
+		\item Festplattenausfall
+		\item Hot-Spare Sicherung: Zweite HHD defekt
+		\item Festplattentausch innerhalb von 4 h
+		\item Hot-Spare Konfiguration überprüft
+	\end{itemize}
+	\column{0.4\textwidth}
+	\begin{figure}
+		\includegraphics[width=1\textwidth]{images/hdd}
+	\end{figure}
+\end{columns}
+\end{frame}
+
+%%%%%%%%%%
+%
+% Problem: Speicherung über 50 Jahre
+%
+%%%%%%%%%%
+\begin{frame}[fragile]{Problem: Speicherung über 50 Jahre}
+	\begin{itemize}
+	\item Kein Hersteller garantiert \textgreater 10 Jahre
+	\item Migration über Jahre hinweg auf jeweils neues System
+	\item Standortunabhängigkeit
+	\item Desasterrecovery schwer
+	\item Retention Lock muss fortgeführt werden
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%
+%
+% Problem: Fehler entdecken
+%
+%%%%%%%%%%
+\begin{frame}[fragile]{Problem: Fehler entdecken}
+
+\begin{columns}[T,c,onlytextwidth]
+	\column{0.6\textwidth}
+	\begin{itemize}
+	\item Fehler passieren immer
+	\item Nur bei Erkennung Reaktion möglich
+	\item Schon bei wenig System schnell unübersichtlich
+	\item Empfehlung: check\_mk
+\end{itemize}
+	\column{0.4\textwidth}
+	\begin{figure}
+		\includegraphics[width=1\textwidth]{images/omd}
+	\end{figure}
+\end{columns}
+\end{frame}
+
+
+%%%%%%%%%%
+%
+% Problem: Single Point of Failure
+%
+%%%%%%%%%%
+\begin{frame}[fragile]{Problem: Single Point of Failure}
+	\begin{figure}
+	\includegraphics[width=1\textwidth]{images/spof1}
+\end{figure}
+\blfootnote{Bild: \href{https://de.wikipedia.org/wiki/Single_Point_of_Failure}{wikipedia.org}}
+\end{frame}
+
+\begin{frame}[fragile]{Problem: Single Point of Failure}
+\begin{figure}
+	\includegraphics[width=1\textwidth]{images/spof2}
+\end{figure}
+\blfootnote{Bild: \href{https://de.wikipedia.org/wiki/Single_Point_of_Failure}{wikipedia.org}}
+\end{frame}
+
+\begin{frame}[fragile]{Problem: Single Point of Failure}
+\begin{figure}
+	\includegraphics[width=1\textwidth]{images/spof3}
+\end{figure}
+\blfootnote{Bild: \href{https://de.wikipedia.org/wiki/Single_Point_of_Failure}{wikipedia.org}}
+\end{frame}
+
+%%%%%%%%%%
+%
+% Problem: Netzwerkverteilung
+%
+%%%%%%%%%%
+\begin{frame}[fragile]{Problem: Netzwerkverteilung}
+	\begin{itemize}
+	\item Klimatechnik auch bei Netzwerkknotenpunkten
+	\item Ringkonfiguration wegen Bauarbeiten
+	\item SPOF zwischen Rechenzentren minimieren
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%
+%
+% Problem: Angriffe
+%
+%%%%%%%%%%
+\begin{frame}[fragile]{Problem: Angriffe}
+	\begin{itemize}
+		\item Abhärtung der Systeme
+		\item Schulung der Mitarbeiter
+		\item Anderen Servern sollte nicht vertraut werden
+		\item Beispiel: OpenVAS
+		\item Beispiel: Logmanagement
+		\item Allgemein: Extrem schwer, alle Angriffe abzuhalten
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%
+%
+% Reaktionszeiten
+%
+%%%%%%%%%%
 \begin{frame}[fragile]{Reaktionszeiten}
-\begin{alertblock}{Ausfälle}
-	Ausfälle passieren
-	Ausfälle passieren zu unmöglichsten Zeiten
-	Ausfall von Systemadminstratoren?
-	Was tun wenn etwas passiert?
-\end{alertblock}
+	\begin{itemize}
+	\item Ausfälle passieren!
+\item Wie ist die Reaktionszeit?
+\item Bei kritischen Systemen: Externer Service
+\item Wie schnell kann Ersatz bestellt werden?
+\item Eventuell: Vorhalten bestimmter Komponenten
+\end{itemize}
 \end{frame}
 
 \section{Grundlagen: Verschlüsselung und Signierung}
@@ -480,72 +647,155 @@ Schutzziele können nur durch Zusammenspiel aus Hard- und Software erreicht werd
 \subsection{Grundlagen}
 
 \begin{frame}[fragile]{Warum Verschlüsselung?}
-\begin{alertblock}{Ausfälle}
-Nötig in der Praxis?
-Vertrauen in den Admin
-Vertrauen in die Infrastruktur
-\end{alertblock}
+	\begin{itemize}
+	\item Firmenumfeld: Fast immer private Daten!
+	\item Verschlüsselung schafft vertrauen
+	\item Vertrauen unabhängig von einzelnen
+	\item Verschlüsselung teilweise gesetzlich gefordert
+	\item Am besten: Allgegenwärtig und immer!
+	\item Aber: Verschlüsselung auch unbequem
+\end{itemize}
 \end{frame}
 
+
 \begin{frame}[fragile]{Symmetrische Verschlüsselung}
-\begin{alertblock}{Ausfälle}
-	Ausfälle passieren
-	Ausfälle passieren zu unmöglichsten Zeiten
-	Ausfall von Systemadminstratoren?
-	Was tun wenn etwas passiert?
-\end{alertblock}
+
+\begin{columns}[T,c,onlytextwidth]
+	\column{0.6\textwidth}
+	\begin{itemize}
+		\item Ein gemeinsames Geheimnis
+		\item Effiziente Implementierung
+		\item Problem des Schlüsselaustausches
+		\item Beispiele: AES oder Blowfish 
+	\end{itemize}
+	\column{0.4\textwidth}
+	\begin{figure}
+		\includegraphics[width=1\textwidth]{images/sym}
+	\end{figure}
+\end{columns}
+\blfootnote{Bild: \href{https://de.wikipedia.org/wiki/Symmetrisches_Kryptosystem}{wikipedia.org}}
 \end{frame}
 
 \begin{frame}[fragile]{Asymmetrische Verschlüsselung}
-\begin{alertblock}{Ausfälle}
-	Ausfälle passieren
-	Ausfälle passieren zu unmöglichsten Zeiten
-	Ausfall von Systemadminstratoren?
-	Was tun wenn etwas passiert?
-\end{alertblock}
+\begin{columns}[T,c,onlytextwidth]
+	\column{0.6\textwidth}
+	\begin{itemize}
+		\item Ein Schlüsselpaar
+		\item Erster Teil: Nur Verschlüsseln
+		\item Zweiter Teil: Nur Entschlüsseln
+		\item Key zum Verschlüsseln öffentlich
+		\item Key zum Entschlüsseln geheim
+		\item Rechenintensiv
+		\item Beispiele: RSA, Elliptic Curve Cryptography (ECC)
+	\end{itemize}
+	\column{0.4\textwidth}
+	\begin{figure}
+		\includegraphics[width=1\textwidth]{images/asym}
+	\end{figure}
+\end{columns}
+\blfootnote{Bild: \href{https://de.wikipedia.org/wiki/Asymmetrisches_Kryptosystem}{wikipedia.org}}
 \end{frame}
 
 \begin{frame}[fragile]{Transportverschlüsselung}
-\begin{alertblock}{Ausfälle}
-	Ausfälle passieren
-	Ausfälle passieren zu unmöglichsten Zeiten
-	Ausfall von Systemadminstratoren?
-	Was tun wenn etwas passiert?
-\end{alertblock}
+\begin{columns}[T,c,onlytextwidth]
+	\column{0.6\textwidth}
+	\begin{itemize}
+		\item 1. Verschlüsselte Verbindung
+		\item 2. Authentizität
+		\item Kombination aus Symmetrischer und Asymmetrischer-Verschlüsselung
+		\item Zertifikatsketten sorgen für Authentizität
+		\item TLS ist nicht gleich TLS
+	\end{itemize}
+	\column{0.4\textwidth}
+	\begin{figure}
+		\includegraphics[width=1\textwidth]{images/oth-key}
+	\end{figure}
+\end{columns}
 \end{frame}
 
 \begin{frame}[fragile]{Festplattenverschlüsselung}
-\begin{alertblock}{Ausfälle}
-	Ausfälle passieren
-	Ausfälle passieren zu unmöglichsten Zeiten
-	Ausfall von Systemadminstratoren?
-	Was tun wenn etwas passiert?
-\end{alertblock}
+	\begin{itemize}
+	\item Extrem wichtig bei mobilen Geräten
+	\item Auch wichtig für Cloud-Speicher
+	\item Meist AES = Schnelle Implementation
+	\item Komplex bei Aufsetzen und starten
+	\item Wichtig für Datenschutz bei Diebstahl
+\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Signaturalgorithmen}
-\begin{alertblock}{Ausfälle}
-Server von DFN beschreiben
-Warum brauchen wir das?
-\end{alertblock}
+	\begin{itemize}
+	\item Basiert meist auf Asymmetrischen Kryptographiesystemen
+	\item Integrität elektronischer Information gesichert
+	\item Zeitstempel kryptographisch gesichert
+	\item Wichtig für Compliance
+	\item Unverzichtbar bei Revisionssicherheit
+\end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{PGP und S/MIME}
-\begin{alertblock}{Ausfälle}
-	Server von DFN beschreiben
-	Warum brauchen wir das?
-\end{alertblock}
+\begin{frame}[fragile]{Email-Verschlüsselung: PGP und S/MIME}
+\begin{columns}[T,c,onlytextwidth]
+	\column{0.5\textwidth}
+\begin{itemize}
+	\item Email nur Transportverschlüsselt
+\item Ansonsten: Postkarte
+\item Absender kann ohne weiteres gefälscht werden
+\item Mögliche Methoden: \\PGP und S/MIME
+\end{itemize}
+\column{0.5\textwidth}
+\begin{figure}
+	\includegraphics[width=1\textwidth]{images/pgp}
+\end{figure}
+\end{columns}
 \end{frame}
 
 \section{Verschlüsselung und Signierung in der Praxis}
 
-\begin{frame}[fragile]{https TLS}
-\begin{alertblock}{Ausfälle}
-	Ausfälle passieren
-	Ausfälle passieren zu unmöglichsten Zeiten
-	Ausfall von Systemadminstratoren?
-	Was tun wenn etwas passiert?
+\begin{frame}[fragile]{TLS für Websites}
+\begin{figure}
+	\includegraphics[width=1\textwidth]{images/not-secure1}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{TLS für Websites}
+\begin{figure}
+\includegraphics[width=0.5\textwidth]{images/not-secure2}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{TLS für Websites}
+\begin{figure}
+\includegraphics[width=1\textwidth]{images/not-secure3}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{TLS für Websites}
+\begin{alertblock}{Tipps}
 \end{alertblock}
+	\begin{itemize}
+	\item Nogo: Website ohne TLS
+	\item TLS ist kein Hexenwerk mehr
+	\item Kostenlose Zertifikate: letsencrypt.org
+	\item Gute Verschlüsselung: cipherli.st
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Email-Verschlüsselung in der Praxis}
+\begin{columns}[T,c,onlytextwidth]
+	\column{0.6\textwidth}
+	\begin{itemize}
+		\item pEp: Pretty Easy Privacy
+		\item Standard Verschlüsselugnsverfahren
+		\item Einfach umgesetzt
+		\item Outlook, Thunderbird, Android, iOS
+		\item www.pep.security
+	\end{itemize}
+	\column{0.4\textwidth}
+	\begin{figure}
+		\includegraphics[width=0.9\textwidth]{images/pep}
+	\end{figure}
+\end{columns}
+\blfootnote{Bild: \href{https://de.wikipedia.org/wiki/Pretty_Easy_privacy}{wikipedia.org}}
 \end{frame}
 
 \begin{frame}[fragile]{Signatur von Backups}
@@ -567,15 +817,6 @@ Warum brauchen wir das?
 \end{frame}
 
 \begin{frame}[fragile]{Signaturalgorithmen}
-\begin{alertblock}{Ausfälle}
-	Ausfälle passieren
-	Ausfälle passieren zu unmöglichsten Zeiten
-	Ausfall von Systemadminstratoren?
-	Was tun wenn etwas passiert?
-\end{alertblock}
-\end{frame}
-
-\begin{frame}[fragile]{Email-Verschlüsselung in der Praxis}
 \begin{alertblock}{Ausfälle}
 	Ausfälle passieren
 	Ausfälle passieren zu unmöglichsten Zeiten
