@@ -355,7 +355,7 @@ Schutzziele können nur durch Zusammenspiel aus Hard- und Software erreicht werd
 \begin{frame}[fragile]{Verschlüsselung}
 	\begin{itemize}
 	\item Backups: Beliebtes Ziel für Datenmanipulation und -diebstahl
-	\item Backups oft nachlässige Sicherheit
+	\item Backups: Oft nachlässige Sicherheit
 	\item Verschlüsselung macht Backup unbequem
 	\item Eigener Infrastruktur sollte nicht vertraut werden
 	\item Transportverschlüsselung nicht vergessen
@@ -425,9 +425,9 @@ Schutzziele können nur durch Zusammenspiel aus Hard- und Software erreicht werd
 	\begin{itemize}
 		\item 12000 Studierende
 		\item 850 Mitarbeiter
-		\item Datenspeicherung \textgreater 50 Jahre
 		\item 1 Petabyte an Speicher
 		\item 3 Serverräume
+		\item Datenspeicherung \textgreater 50 Jahre
 		\item Voll redundante Systeme \\(Tier 2-3)
 	\end{itemize}
 	\column{0.5\textwidth}
@@ -452,7 +452,7 @@ Schutzziele können nur durch Zusammenspiel aus Hard- und Software erreicht werd
 	\item Redundant ausgelegte Kälteanlage
 	\item Redundanter Wärmetauscher
 	\item Beide an Kälteanlage angeschlossen
-	\item Pumpenausfall führte zu ausfall aller Wärmetauscher
+	\item Pumpenausfall führte zu Ausfall aller Wärmetauscher
 	\item Notabschaltung eines Serverraums nötig
 \end{itemize}
 \end{frame}
@@ -523,7 +523,7 @@ Schutzziele können nur durch Zusammenspiel aus Hard- und Software erreicht werd
 	\begin{itemize}
 		\item Konfiguration: RAID 60 mit zwei Hot-Spare Platten
 		\item Festplattenausfall
-		\item Hot-Spare Sicherung: Zweite HHD defekt
+		\item Hot-Spare Sicherung: Zweite HDD defekt
 		\item Festplattentausch innerhalb von 4 h
 		\item Hot-Spare Konfiguration überprüft
 	\end{itemize}
@@ -532,6 +532,23 @@ Schutzziele können nur durch Zusammenspiel aus Hard- und Software erreicht werd
 		\includegraphics[width=1\textwidth]{images/hdd}
 	\end{figure}
 \end{columns}
+\end{frame}
+
+
+%%%%%%%%%%
+%
+% Deduplizierung und Kompression sind deine Freunde
+%
+%%%%%%%%%%
+\begin{frame}[fragile]{Deduplizierung und Kompression sind deine Freunde}
+	\begin{itemize}
+	\item Deduplizierung: Doppelte Dateien einmal ablegen
+	\item Kompression: Dateien komprimieren
+	\item Besonders effizient bei Snapshots
+	\item Extreme Einsparung möglich
+	\item Brutto-Speicherplatz steigt
+	\item Beispiel OTH: 45,95 \%
+\end{itemize}
 \end{frame}
 
 %%%%%%%%%%
@@ -651,7 +668,7 @@ Schutzziele können nur durch Zusammenspiel aus Hard- und Software erreicht werd
 %%%%%%%%%%
 \begin{frame}[fragile]{Warum Verschlüsselung?}
 	\begin{itemize}
-	\item Firmenumfeld: Fast immer private Daten!
+	\item Firmenumfeld und Privat: Immer schützenswerte Daten!
 	\item Verschlüsselung schafft vertrauen
 	\item Vertrauen unabhängig von einzelnen
 	\item Verschlüsselung teilweise gesetzlich gefordert
@@ -813,6 +830,7 @@ Schutzziele können nur durch Zusammenspiel aus Hard- und Software erreicht werd
 	\item TLS ist kein Hexenwerk mehr
 	\item Kostenlose Zertifikate: letsencrypt.org
 	\item Gute Verschlüsselung: cipherli.st
+	\item Stichwort: TLS 1.3 vs. eTLS
 \end{itemize}
 \end{frame}
 
