@@ -26,3 +26,5 @@ latexmkrc
 *.synctex.gz
 *.synctex.gz(busy)
 *.pdfsync
+*.bcf
+*.run.xml
